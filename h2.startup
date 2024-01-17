@@ -1,0 +1,13 @@
+ip addr flush dev eth0
+ip link set eth0 address 00:00:00:00:00:20
+ip addr add 2001:1:2::1/64 dev eth0
+
+
+#ip -6 r add 2001:1:1::/64 dev eth0
+#ip -6 r add 2001:2:3::/64 dev eth0
+#ip -6 r add 2001:2:4::/64 dev eth0
+
+#ip -6 neigh add 2001:1:2::ff lladdr 00:aa:00:00:00:01 nud permanent dev eth0
+ip -6 route add default via 2001:1:2::ff
+
+#tcpdump -G 30 -W 1 -i eth0 -w shared/h2.pcap &

@@ -1,0 +1,45 @@
+############ leaf1
+
+#my station table (odczytane)
+table_add my_station_table NoAction 00:aa:00:00:00:01 =>
+
+#srv6_my_sid
+table_add srv6_my_sid srv6_end 3:101:2::/128 =>
+
+#routing_v6_table
+#h2
+table_add routing_v6_table set_next_hop 2001:1:2::1/128 => 00:00:00:00:00:20
+#h3
+table_add routing_v6_table set_next_hop 2001:2:3::/64 => 00:bb:00:00:00:02
+#h4
+table_add routing_v6_table set_next_hop 2001:2:4::/64 => 00:bb:00:00:00:02
+#spine1
+table_add routing_v6_table set_next_hop 3:201:2::/128 => 00:bb:00:00:00:01
+#spine2
+table_add routing_v6_table set_next_hop 3:202:2::/128 => 00:bb:00:00:00:02
+
+#srv6_transit
+table_add srv6_transit srv6_t_insert_2 2001:2:4::1/128 => 3:202:2:: 2001:2:4::1
+
+#l2_exact_tables (odczytane 2)
+table_add l2_exact_table set_egress_port 00:bb:00:00:00:01 => 1
+table_add l2_exact_table set_egress_port 00:bb:00:00:00:02 => 2
+table_add l2_exact_table set_egress_port 00:00:00:00:00:20 => 6
+table_add l2_exact_table set_egress_port 00:00:00:00:00:1b => 4
+
+#acl_table (odczytane 1 2)
+table_add acl_table clone_to_cpu 0x0&&&0x0 0x0&&&0x0 0x0&&&0x0 0x8942&&&0xffff 0x0&&&0x00 0x0&&&0x00 0x0&&&0x00 0x0&&&0x00 => 40000
+table_add acl_table clone_to_cpu 0x0&&&0x0 0x0&&&0x0 0x0&&&0x0 0x86dd&&&0xffff 0x3a&&&0xff 0x87&&&0xff 0x0&&&0x00 0x0&&&0x00 => 40000
+table_add acl_table clone_to_cpu 0x0&&&0x0 0x0&&&0x0 0x0&&&0x0 0x86dd&&&0xffff 0x3a&&&0xff 0x88&&&0xff 0x0&&&0x00 0x0&&&0x00 => 40000
+table_add acl_table clone_to_cpu 0x0&&&0x0 0x0&&&0x0 0x0&&&0x0 0x88cc&&&0xffff 0x0&&&0x00 0x0&&&0x00 0x0&&&0x00 0x0&&&0x00 => 40000
+table_add acl_table clone_to_cpu 0x0&&&0x0 0x0&&&0x0 0x0&&&0x0 0x0806&&&0xffff 0x0&&&0x00 0x0&&&0x00 0x0&&&0x00 0x0&&&0x00 => 40000
+
+#ternary_table (odczytane 0)
+table_add l2_ternary_table set_multicast_group 33:33:00:00:00:00&&&0xffff00000000 => 255 10
+table_add l2_ternary_table set_multicast_group ff:ff:ff:ff:ff:ff&&&0xffffffffffff => 255 10
+
+#ndp_reply_table (odczytane 1)
+table_add ndp_reply_table ndp_ns_to_na 2001:1:1::ff => 00:aa:00:00:00:01
+table_add ndp_reply_table ndp_ns_to_na 2001:1:2::ff => 00:aa:00:00:00:01
+
+
