@@ -13,9 +13,9 @@ ip link set eth5 address 00:aa:00:00:00:01
 #zapisac w notatkach ze usunięcie ip adresów dla interfejsów rozwiązało problem braku wiedzy przez interfej o istnieniu kodu p4
 
 #make -C /shared/
-simple_switch_grpc --device-id 1 -- -i 1@eth0 -i 2@eth1 -i 3@eth2 -i 4@eth3 -i 5@eth4 -i 6@eth5 /shared/build/bmv2.json  &
+simple_switch_grpc --device-id 1 -i 1@eth0 -i 2@eth1 -i 3@eth2 -i 4@eth3 -i 5@eth4 -i 6@eth5 /shared/build/bmv2.json  &
 
-while [[ $(pgrep simple_switch) -eq 0 ]]; do sleep 1; done
-until simple_switch_CLI <<< "help"; do sleep 1; done
+#while [[ $(pgrep simple_switch_grpc) -eq 0 ]]; do sleep 1; done
+#until simple_switch_CLI <<< "help"; do sleep 1; done
 
-simple_switch_CLI <<< $(cat commands.txt)
+#simple_switch_CLI <<< $(cat commands.txt)
