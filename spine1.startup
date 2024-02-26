@@ -5,9 +5,12 @@ ip link set eth1 address 00:bb:00:00:00:01
 
 
 #make -C /shared/
-simple_switch -i 1@eth0 -i 2@eth1 /shared/build/bmv2.json &
+simple_switch_grpc --device-id 1 -i 1@eth0 -i 2@eth1 /shared/build/bmv2.json &
 
 while [[ $(pgrep simple_switch) -eq 0 ]]; do sleep 1; done
-until simple_switch_CLI <<< "help"; do sleep 1; done
 
-simple_switch_CLI <<< $(cat commands.txt)
+mv controller_p4runtime.py /home/p4-utils/
+python3 /home/p4-utils/controller_p4runtime.py
+
+#until simple_switch_CLI <<< "help"; do sleep 1; done
+#simple_switch_CLI <<< $(cat commands.txt)
