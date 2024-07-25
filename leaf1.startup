@@ -1,10 +1,15 @@
 ip addr flush dev eth5
+ip addr flush dev eth6
 ip link set eth0 address 00:aa:00:00:00:01
 ip link set eth1 address 00:aa:00:00:00:01
 ip link set eth2 address 00:aa:00:00:00:01
 ip link set eth3 address 00:aa:00:00:00:01
 ip link set eth4 address 00:aa:00:00:00:01
 ip link set eth5 address 00:aa:00:00:00:01
+ip link set eth6 address 00:aa:00:00:00:01
+ip addr add 2001:1:c::1/48 dev eth6
+ip addr add 2001:1::1/32 dev lo
+
 
 #ip addr add 2001:1:1::ff/64 dev eth2
 #ip addr add 2001:1:1::ff/64 dev eth3
@@ -13,12 +18,13 @@ ip link set eth5 address 00:aa:00:00:00:01
 #zapisac w notatkach ze usunięcie ip adresów dla interfejsów rozwiązało problem braku wiedzy przez interfej o istnieniu kodu p4
 
 #make -C /shared/
-simple_switch_grpc --device-id 1 -i 1@eth0 -i 2@eth1 -i 3@eth2 -i 4@eth3 -i 5@eth4 -i 6@eth5 /shared/build/bmv2.json  &
+ldconfig
+simple_switch_grpc --device-id 1 -i 1@eth0 -i 2@eth1 -i 3@eth2 -i 4@eth3 -i 5@eth4 -i 6@eth5 -i7@eth6 /shared/build/bmv2.json  &
 
-while [[ $(pgrep simple_switch) -eq 0 ]]; do sleep 1; done
+while [[ $(pgrep simple_switch) -eq 0 ]]; do sleep 4; done
 
-mv controller_p4runtime.py /home/p4-utils/
-python3 /home/p4-utils/controller_p4runtime.py
+python3 /controller_p4runtime.py
+#python3 /home/p4-utils/controller_p4runtime.py
 
 #until simple_switch_CLI <<< "help"; do sleep 1; done
 #simple_switch_CLI <<< $(cat commands.txt)
