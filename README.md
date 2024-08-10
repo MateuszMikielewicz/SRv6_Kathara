@@ -7,6 +7,9 @@ Each switch has its own <switch_name>/controller_p4runtime.py script, which with
 
 The switches are prepared with a SRv6 path added bettwen hosts 2001:1:2::1 and 2001:2:4::1.
 
+NOTE:
+The instructions on how to modify Kathara Docker images needed to run this network are not ready yet.
+
 ## Network Scenario
 
 This is the network scenario topology: 
