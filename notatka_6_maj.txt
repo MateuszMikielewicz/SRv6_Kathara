@@ -1,0 +1,10 @@
+na dockerze installing_node_manager stworzone zostalo virtualne srodowisko prz pomocy komendy.
+
+$ python3 -m venv ~/.envs/node-mgr-venv
+
+Należy korzystać z tego venv'a bo tam zainstalowane sa zależnośći pythonowe. 
+Sourcowac mozna nastepujaca komendą
+
+$ source ~/.envs/node-mgr-venv-venv/bin/activate
+
+path --grpc-ip 2001:1::1 --grpc-port 12345 --op add --destination 2001:2:4::1 --segments 3:202:2::,2001:2:4::1

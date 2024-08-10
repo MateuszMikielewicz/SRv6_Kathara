@@ -5,13 +5,15 @@ controller.table_add('my_station_table','NoAction', ['00:aa:00:00:00:01'])
 
 controller.table_add('srv6_my_sid','srv6_end', ['3:101:2::/128'])
 
-controller.table_add('routing_v6_table','set_next_hop', ['2001:1:2::1/128'], ['00:00:00:00:00:20'])
-controller.table_add('routing_v6_table','set_next_hop', ['2001:2:3::/64'], ['00:bb:00:00:00:02'])
-controller.table_add('routing_v6_table','set_next_hop', ['2001:2:4::/64'], ['00:bb:00:00:00:02'])
+controller.table_add('routing_v6_table','set_next_hop', ['2001:1:2::/64'], ['00:00:00:00:00:20'])
+controller.table_add('routing_v6_table','set_next_hop', ['2001:1:1::b/128'], ['00:00:00:00:00:20'])
+#controller.table_add('routing_v6_table','set_next_hop', ['2001:2:3::/64'], ['00:bb:00:00:00:02'])
+#controller.table_add('routing_v6_table','set_next_hop', ['2001:2:4::/64'], ['00:bb:00:00:00:02'])
 controller.table_add('routing_v6_table','set_next_hop', ['3:201:2::/128'], ['00:bb:00:00:00:01'])
 controller.table_add('routing_v6_table','set_next_hop', ['3:202:2::/128'], ['00:bb:00:00:00:02'])
+controller.table_add('routing_v6_table','set_next_hop', ['3:102:2::/128'], ['00:bb:00:00:00:01'])
 
-controller.table_add('srv6_transit','srv6_t_insert_2', ['2001:2:4::1/128'], ['3:202:2::', '2001:2:4::1'])
+controller.table_add('srv6_transit','srv6_t_insert_2', ['2001:2:3::1/128'], ['3:102:2::', '2001:2:3::1'])
 
 controller.table_add('l2_exact_table','set_egress_port', ['00:bb:00:00:00:01'], ['1'])
 controller.table_add('l2_exact_table','set_egress_port', ['00:bb:00:00:00:02'], ['2'])

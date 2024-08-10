@@ -5,7 +5,7 @@ controller.table_add('my_station_table','NoAction', ['00:bb:00:00:00:02'])
 
 controller.table_add('srv6_my_sid','srv6_end', ['3:202:2::/128'])
 
-controller.table_add('routing_v6_table','set_next_hop', ['2001:1:1::1/128'], ['00:aa:00:00:00:01'])
+controller.table_add('routing_v6_table','set_next_hop', ['2001:1:1::/64'], ['00:aa:00:00:00:01'])
 controller.table_add('routing_v6_table','set_next_hop', ['2001:1:2::/64'], ['00:aa:00:00:00:01'])
 controller.table_add('routing_v6_table','set_next_hop', ['2001:2:3::/64'], ['00:aa:00:00:00:02'])
 controller.table_add('routing_v6_table','set_next_hop', ['2001:2:4::/64'], ['00:aa:00:00:00:02'])
