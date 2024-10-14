@@ -7,4 +7,25 @@ Sourcowac mozna nastepujaca komendą
 
 $ source ~/.envs/node-mgr-venv-venv/bin/activate
 
-path --grpc-ip 2001:1::1 --grpc-port 12345 --op add --destination 2001:2:4::1 --segments 3:202:2::,2001:2:4::1
+commands to run sdn controler and sdn southbound api:
+
+on leaf devices:
+$ node_manager --bmv2 -g 3:101:c::1
+$ node_manager --bmv2 -g 3:102:c::1
+on controller device:
+$ controller&
+$ cd /home/rose-srv6-control-plane/control_plane/apps/apps/cli
+$ python3 cli.py
+
+path --grpc-ip 2001:1::1 --grpc-port 12345 --op add --destination 2001:2:4::1 --segments 3:202:2::,2001:2:4::1 --device eth0
+
+#leaf1
+path --grpc-ip 3:101:c::1 --grpc-port 12345 --op add --destination 2001:2:4::1 --segments 3:102:2::,2001:2:4::1 --device eth0
+#leaf2
+path --grpc-ip 3:102:c::1 --grpc-port 12345 --op add --destination 2001:1:2::1 --segments 3:201:2::,3:101:2::,2001:1:2::1 --device eth1
+
+#Badania
+ tcpdump -i veth1 -w /shared/Badanie_15_10_2024_wylaczenie_leaf1_dziala/leaf2_veth1_sdn_config.pcap
+ tcpdump -i veth1 -w /shared/Badanie_15_10_2024_wylaczenie_leaf1_dziala/leaf1_veth1_sdn_config.pcap
+ tcpdump -i eth0 -w /shared/Badanie_15_10_2024_wylaczenie_leaf1_dziala/controler_eth0_sdn_config.pcap&
+ tcpdump -i eth1 -w /shared/Badanie_15_10_2024_wylaczenie_leaf1_dziala/controler_eth1_sdn_config.pcap&

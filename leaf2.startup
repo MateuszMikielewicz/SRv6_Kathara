@@ -4,13 +4,19 @@ ip link set eth1 address 00:aa:00:00:00:02
 ip link set eth2 address 00:aa:00:00:00:02
 ip link set eth3 address 00:aa:00:00:00:02
 
-#ip addr add 2001:2:3::ff/64 dev eth2
-#ip addr add 2001:2:4::ff/64 dev eth3
-#zapisac w notatkach ze usunięcie ip adresów dla interfejsów rozwiązało problem braku wiedzy przez interfej o istnieniu kodu p4
+ip link add veth0 type veth peer name veth1
+ifconfig veth0 up
+ifconfig veth1 up
+ethtool -K veth0 tx off
+ethtool -K veth1 tx off
+ip addr add 3:102:c::1/48 dev veth1
+ip -6 route add 2001:c:2::1/48 via 3:102:c::ff dev veth1
+
+
 
 #make -C /shared/
 ldconfig
-simple_switch_grpc --device-id 1 -i 1@eth0 -i 2@eth1 -i 3@eth2 -i 4@eth3 /shared/build/bmv2.json &
+simple_switch_grpc --device-id 1 -i 1@eth0 -i 2@eth1 -i 3@eth2 -i 4@eth3 -i 5@eth4 -i 6@veth0 /shared/build/bmv2.json &
 
 while [[ $(pgrep simple_switch) -eq 0 ]]; do sleep 1; done
 
