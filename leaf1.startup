@@ -7,20 +7,20 @@ ip link set eth5 address 00:aa:00:00:00:01
 ip link set eth6 address 00:aa:00:00:00:01
 #ip addr add 2001:1:c::1/48 dev eth6
 #ip addr add 2001:1::1/32 dev lo
-ip link add veth0 type veth peer name veth1
-ifconfig veth0 up
-ifconfig veth1 up
-ethtool -K veth0 tx off
-ethtool -K veth1 tx off
-ip addr add 3:101:c::1/48 dev veth1
-ip -6 route add 2001:c:1::1/48 via 3:101:c::ff dev veth1
-#ip addr add 3:101::1/32 dev lo
+#ip link add veth0 type veth peer name veth1
+#ifconfig veth0 up
+#ifconfig veth1 up
+#ethtool -K veth0 tx off
+#ethtool -K veth1 tx off
+ip addr add 2001:c:1::ff/48 dev eth6
+ip -6 route add 2001:c:1::1/48 via 2001:c:1::ff dev eth6
+ip addr add 3:101:c::1/32 dev lo
 
 #make -C /shared/
 sleep 5
 ldconfig
-simple_switch_grpc --device-id 1 -i 1@eth0 -i 2@eth1 -i 3@eth2 -i 4@eth3 -i 5@eth4 -i 6@eth5 -i 7@eth6 -i 8@veth0 /shared/build/bmv2.json  &
-#simple_switch_grpc --device-id 1 -i 1@eth0 -i 2@eth1 -i 3@eth2 -i 4@eth3 -i 5@eth4 -i 6@eth5 /shared/build/bmv2.json  &
+#simple_switch_grpc --device-id 1 -i 1@eth0 -i 2@eth1 -i 3@eth2 -i 4@eth3 -i 5@eth4 -i 6@eth5 -i 7@eth6 -i 8@veth0 /shared/build/bmv2.json  &
+simple_switch_grpc --device-id 1 -i 1@eth0 -i 2@eth1 -i 3@eth2 -i 4@eth3 -i 5@eth4 -i 6@eth5 /shared/build/bmv2.json  &
 
 while [[ $(pgrep simple_switch) -eq 0 ]]; do sleep 4; done
 

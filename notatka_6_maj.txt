@@ -27,5 +27,5 @@ path --grpc-ip 3:102:c::1 --grpc-port 12345 --op add --destination 2001:1:2::1 -
 #Badania
  tcpdump -i veth1 -w /shared/Badanie_15_10_2024_wylaczenie_leaf1_dziala/leaf2_veth1_sdn_config.pcap
  tcpdump -i veth1 -w /shared/Badanie_15_10_2024_wylaczenie_leaf1_dziala/leaf1_veth1_sdn_config.pcap
- tcpdump -i eth0 -w /shared/Badanie_15_10_2024_wylaczenie_leaf1_dziala/controler_eth0_sdn_config.pcap&
- tcpdump -i eth1 -w /shared/Badanie_15_10_2024_wylaczenie_leaf1_dziala/controler_eth1_sdn_config.pcap&
+ tcpdump -i eth0 -w /shared/Badanie_15_10_2024_wylaczenie_leaf1_dziala/controler_eth0_sdn_config.pcap
+ tcpdump -i eth1 -w /shared/Badanie_15_10_2024_wylaczenie_leaf1_dziala/controler_eth1_sdn_config.pcap
