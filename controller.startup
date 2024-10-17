@@ -6,12 +6,12 @@ ip addr add 2001:c:1::1/48 dev eth0
 ip addr add 2001:c:2::1/48 dev eth1
 
 #two sdn interfaces
-ip -6 route add 3:101:c::1/48 via 2001:c:1::ff dev eth0
-ip -6 route add 3:102:c::1/48 via 2001:c:2::ff dev eth1
+#ip -6 route add 3:101:c::1/48 via 2001:c:1::ff dev eth0
+#ip -6 route add 3:102:c::1/48 via 2001:c:2::ff dev eth1
 
 
 #one sdn interface
-#ip -6 route add default via 2001:c:1::ff dev eth0
+ip -6 route add default via 2001:c:1::ff dev eth0
 
 
 #ip addr add 2001:c:102::1/32 dev eth0
